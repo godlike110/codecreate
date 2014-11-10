@@ -1,0 +1,46 @@
+package $daoPkg;
+
+import java.util.List;
+import net.paoding.rose.jade.annotation.DAO;
+import net.paoding.rose.jade.annotation.ReturnGeneratedKeys;
+import net.paoding.rose.jade.annotation.SQL;
+import ${modelPkg}.${table.pascalName};
+#if(${table.isFlashTable} == 'true')
+import net.paoding.rose.jade.annotation.ShardBy;
+#end
+@DAO
+public interface ${table.pascalName}DAO {
+
+	@SQL("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} = :1")
+	${table.pascalName} get(${table.priKey.type} id #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
+
+	
+	@SQL("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} IN (:1)")
+	List<${table.pascalName}> getList(List<${table.priKey.type}> idList #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
+	
+	
+	@SQL("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} IN (:1) ORDER BY find_in_set(${table.priKey.name} , :2)")
+	List<${table.pascalName}> getOrderList(List<${table.priKey.type}> idList, String orderIdsStr #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
+    
+    @ReturnGeneratedKeys
+	@SQL("INSERT INTO ${table.vMTableName} (${table.insertBody}) VALUES(${table.insertJadeBody})") 
+	Long save(${table.pascalName} ${table.lowerName} #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
+	
+	#set ($i=0)
+	@SQL("UPDATE ${table.vMTableName} SET ${table.priKey.name}=:1.${table.priKey.name} " +
+	#foreach ($field in $table.fields)
+	    #set($i=$i+1)
+	    #if($i>1)
+	       "\#if(:1.${field.camelName}){,${field.name}=:1.${field.camelName}}"+
+	    #end
+	#end
+    " WHERE ${table.priKey.name}=:1.${table.priKey.name} ")
+	void update(${table.pascalName} ${table.lowerName} #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
+	
+	@SQL("DELETE FROM ${table.vMTableName} WHERE ${table.priKey.name}= :1")
+	int delete(${table.priKey.type} id);
+	
+	@SQL("SELECT COUNT(1) FROM ${table.vMTableName}")
+	int count(#if(${table.isFlashTable} == 'true') @ShardBy int ${table.priKey.name} #end);
+	
+}
