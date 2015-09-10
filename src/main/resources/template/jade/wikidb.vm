@@ -1,0 +1,10 @@
+#foreach ($table in $tables)
+<h2 style="text-align: left;"><br class="Apple-interchange-newline">表名: ${table.tableName}</h2><table class="confluenceTable" style="text-align: left;"><tbody><tr><th class="confluenceTh" style="text-align: left;">字段名</th><th class="confluenceTh" style="text-align: left;">类型</th><th class="confluenceTh" style="text-align: left;">长度</th><th class="confluenceTh" style="text-align: left;">是否为空</th><th class="confluenceTh" style="text-align: left;">默认值</th><th class="confluenceTh" style="text-align: left;">字段描述</th></tr>
+
+#foreach ($field in $table.fields)
+<tr>
+<td class="confluenceTd" style="text-align: left;">${field.name}</td><td class="confluenceTd" style="text-align: left;">${field.dbType}</td><td class="confluenceTd" style="text-align: left;">${field.length}</td><td class="confluenceTd" style="text-align: left;">${field.isNull}</td><td class="confluenceTd" style="text-align: left;">${field.defaultVal}</td><td class="confluenceTd" style="text-align: left;">${field.desc}</td>
+</tr>
+#end
+</tbody></table>
+#end

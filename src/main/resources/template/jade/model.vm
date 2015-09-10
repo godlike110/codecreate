@@ -30,5 +30,12 @@ public class ${table.pascalName} extends BaseObject {
     }
     
 #end
+    public static ${table.pascalName} getInstantce(${table.ParamBody}){
+      ${table.pascalName} ${table.lowerName} = new ${table.pascalName}();
+      #foreach ($field in $table.fields)
+         ${table.lowerName}.set${field.pascalName}($field.camelName);
+      #end
+      return ${table.lowerName};
+    }
 
 }

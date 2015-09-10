@@ -1,74 +1,106 @@
 package com.codegen.db.model;
 
+import com.codegen.utils.NamingUtils;
 import java.io.Serializable;
 
-import com.codegen.utils.NamingUtils;
-
-/**
- * 表示数据库表 某字段信息
- */
 public class FieldInfo implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private String type = "String";
+	private boolean isPriKey;
+	private boolean isAutoIncrement;
+	private String isNull;
+	private String defaultVal;
+	private String dbType;
+	private String length;
+	private String desc;
+	private String key;
 
-    private static final long serialVersionUID = 1L;
+	public String getCamelName() {
+		return NamingUtils.getCamelName(this.name);
+	}
 
-    /**
-     * 字段名称
-     */
-    private String name;
+	public String getPascalName() {
+		return NamingUtils.getPascalName(this.name);
+	}
 
-    /**
-     * 字段类型
-     */
-    private String type = "String";
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     *  是否主键 
-     */
-    private boolean isPriKey;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     *  是否自增
-     */
-    private boolean isAutoIncrement;
-    
-    public String getCamelName(){
-        return NamingUtils.getCamelName(name);
-    }
-    
-    public String getPascalName() { 
-        return NamingUtils.getPascalName(name);
-    }
+	public String getType() {
+		return this.type;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public boolean getIsPriKey() {
+		return this.isPriKey;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setIsPriKey(boolean isPriKey) {
+		this.isPriKey = isPriKey;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setIsAutoIncrement(boolean isAutoIncrement) {
+		this.isAutoIncrement = isAutoIncrement;
+	}
 
-    public boolean getIsPriKey() {
-        return isPriKey;
-    }
+	public boolean getIsAutoIncrement() {
+		return this.isAutoIncrement;
+	}
 
-    public void setIsPriKey(boolean isPriKey) {
-        this.isPriKey = isPriKey;
-    }
+	public String getIsNull() {
+		return this.isNull;
+	}
 
-    public void setIsAutoIncrement(boolean isAutoIncrement) {
-        this.isAutoIncrement = isAutoIncrement;
-    }
+	public void setIsNull(String isNull) {
+		this.isNull = isNull;
+	}
 
-    public boolean getIsAutoIncrement() {
-        return isAutoIncrement;
-    }
+	public String getDefaultVal() {
+		return this.defaultVal == null ? "null" : this.defaultVal;
+	}
 
+	public void setDefaultVal(String defaultVal) {
+		this.defaultVal = defaultVal;
+	}
+
+	public String getDbType() {
+		return this.dbType;
+	}
+
+	public void setDbType(String dbType) {
+		this.dbType = dbType;
+	}
+
+	public String getLength() {
+		return this.length;
+	}
+
+	public void setLength(String length) {
+		this.length = length;
+	}
+
+	public String getDesc() {
+		return this.desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public String getKey() {
+		return this.key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 }
