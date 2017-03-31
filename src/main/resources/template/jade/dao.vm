@@ -1,31 +1,26 @@
 package $daoPkg;
 
 import java.util.List;
-import net.paoding.rose.jade.annotation.DAO;
-import net.paoding.rose.jade.annotation.ReturnGeneratedKeys;
-import net.paoding.rose.jade.annotation.SQL;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
+import tk.mybatis.mapper.common.Mapper;
 import ${modelPkg}.${table.pascalName};
-#if(${table.isFlashTable} == 'true')
-import net.paoding.rose.jade.annotation.ShardBy;
-#end
+
 @DAO
-public interface ${table.pascalName}DAO {
+public interface ${table.pascalName}DAO extends Mapper<${table.pascalName}>{
 
-	@SQL("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} = :1")
-	${table.pascalName} get(${table.priKey.type} id #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
+    public static final String FIELD = "{${table.selectBody}";
 
-	
-	@SQL("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} IN (:1)")
-	List<${table.pascalName}> getList(List<${table.priKey.type}> idList #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
-	
-	
-	@SQL("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} IN (:1) ORDER BY find_in_set(${table.priKey.name} , :2)")
-	List<${table.pascalName}> getOrderList(List<${table.priKey.type}> idList, String orderIdsStr #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
-    
+	@Select("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} = ${table.priKey.name}")
+	${table.pascalName} get( @Param("${table.priKey.name}") ${table.priKey.type} id);
+
+
 	#set ($i=0)
 	#set ($j=0)
-    @ReturnGeneratedKeys
-	@SQL("INSERT INTO ${table.vMTableName} ("+
+	@Insert("INSERT INTO ${table.vMTableName} ("+
 	#foreach ($field in $table.fields)	    
 		#if($j==0)
 	       "${field.name}"+
@@ -46,23 +41,16 @@ public interface ${table.pascalName}DAO {
 		#set($i=$i+1)
 	#end
 	")") 
-	Long save(${table.pascalName} ${table.lowerName} #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
+	Long save(${table.pascalName} ${table.lowerName});
 	
 	#set ($i=0)
-	@SQL("UPDATE ${table.vMTableName} SET ${table.priKey.name}=:1.${table.priKey.name} " +
-	#foreach ($field in $table.fields)
-	    #set($i=$i+1)
-	    #if($i>1)
-	       "\#if(:1.${field.camelName}!=null){,${field.name}=:1.${field.camelName}}"+
-	    #end
-	#end
-    " WHERE ${table.priKey.name}=:1.${table.priKey.name} ")
-	void update(${table.pascalName} ${table.lowerName} #if(${table.isFlashTable} == 'true') ,@ShardBy int ${table.priKey.name} #end);
-	
-	@SQL("DELETE FROM ${table.vMTableName} WHERE ${table.priKey.name}= :1")
-	int delete(${table.priKey.type} id);
+	@Update("")
+	void update(${table.pascalName} ${table.lowerName});
+
+	@Delete("DELETE FROM ${table.vMTableName} WHERE ${table.priKey.name}=${table.priKey.name}")
+	int delete(@Param("${table.priKey.name}")${table.priKey.type} id);
 	
 	@SQL("SELECT COUNT(1) FROM ${table.vMTableName}")
-	int count(#if(${table.isFlashTable} == 'true') @ShardBy int ${table.priKey.name} #end);
+	int count();
 	
 }

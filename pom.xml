@@ -1,17 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
-        <parent>
-            <groupId>com.mdsh</groupId>
-            <artifactId>mdsh-root-pom</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </parent>
 
-
-        <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.codegen</groupId>
-	<artifactId>maven-jadegen-plugin</artifactId>
+	<artifactId>maven-code-plugin</artifactId>
+	<version>1.0.0</version>
 	<packaging>maven-plugin</packaging>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -20,7 +15,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
 				</configuration>
@@ -51,6 +46,48 @@
 			</resource>
 		</resources>
 	</build>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>libs-release</name>
+			<url>
+				http://maven.aliyun.com/nexus/content/groups/public
+			</url>
+		</repository>
+		<repository>
+			<snapshots/>
+			<id>snapshots</id>
+			<name>libs-snapshot</name>
+			<url>
+				http://maven.aliyun.com/nexus/content/groups/public
+			</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>plugins-release</name>
+			<url>
+				http://maven.aliyun.com/nexus/content/groups/public
+			</url>
+		</pluginRepository>
+		<pluginRepository>
+			<snapshots/>
+			<id>snapshots</id>
+			<name>plugins-snapshot</name>
+			<url>
+				http://maven.aliyun.com/nexus/content/groups/public
+			</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -76,16 +113,19 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.38</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
+			<version>1.7</version>
 		</dependency>
 
 	</dependencies>

@@ -71,7 +71,12 @@ public class TableInfo implements Serializable {
 	public String getSelectBody() {
 		StringBuffer sb = new StringBuffer();
 		for (FieldInfo info : getFields()) {
-			sb.append(" ").append(info.getName()).append(",");
+
+			if(NamingUtils.needToSwap(info.getName())) {
+				sb.append(" ").append(info.getName()).append(" AS ").append(NamingUtils.getCamelName(info.getName())).append(",");
+			} else {
+				sb.append(" ").append(info.getName()).append(",");
+			}
 		}
 		String body = sb.toString();
 		return StringUtils.chomp(body, ",");

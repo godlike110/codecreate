@@ -65,4 +65,23 @@ public class Db2Code extends AbstractMojo {
 			throw new MojoExecutionException("", e);
 		}
 	}
+
+//
+//	public static void main(String[] args) throws MojoFailureException, MojoExecutionException {
+//		Db2Code db2Code = new Db2Code();
+//		db2Code.driverClass = "com.mysql.jdbc.Driver";
+//		db2Code.dbUrl="jdbc:mysql://10.100.13.238:3306/test_caifu";
+//		db2Code.dbUser="dev_select_licai";
+//		db2Code.dbPassword="dev_select_licai";
+//		db2Code.tbNamePattern="%";
+//		db2Code.modelPkg="com.codegen.test.model";
+//		db2Code.daoPkg="com.codegen.test.dao";
+//		db2Code.wikiPkg="com.codegen.test.wiki";
+//		db2Code.genType=1;
+//		db2Code.baseObjectClass="com.wenzhiwei.BaseObject";
+//		db2Code.pkClass="com.wenzhiwei.pkClass";
+//		db2Code.execute();
+//
+//	}
+
 }

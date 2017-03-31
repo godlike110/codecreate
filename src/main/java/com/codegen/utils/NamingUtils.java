@@ -4,6 +4,21 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 
 public class NamingUtils {
+
+	public static boolean needToSwap(String name) {
+		if(StringUtils.isNotEmpty(name)) {
+			if(StringUtils.split(name,"_").length>=2) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		String a = "path_enabled";
+		System.out.println(needToSwap(a));
+	}
+
 	public static String getPascalName(String name) {
 		StringBuilder sb = new StringBuilder();
 		String[] strList = StringUtils.split(name, "_");
