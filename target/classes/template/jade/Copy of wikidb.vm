@@ -1,0 +1,26 @@
+#foreach ($table in $tables)
+== '''表名: ${table.tableName}''' ==
+
+{| class="wikitable" border="1" style="width:87%" 
+|-
+!  style="width:110px" |字段名
+!  style="width:80px" |类型
+!  style="width:70px" |长度
+!  style="width:70px" |可否为空
+!  style="width:100px" |Key
+!  style="width:120px" |默认值
+!  字段描述
+#foreach ($field in $table.fields)
+|-
+|  ${field.name}
+|  ${field.dbType}
+|  ${field.length}
+|  ${field.isNull}
+|  ${field.key}
+|  ${field.defaultVal}
+|  ${field.desc}
+#end
+|}
+
+
+#end

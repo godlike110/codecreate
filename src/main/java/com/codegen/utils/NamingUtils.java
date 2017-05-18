@@ -15,15 +15,16 @@ public class NamingUtils {
 	}
 
 	public static void main(String[] args) {
-		String a = "path_enabled";
-		System.out.println(needToSwap(a));
+		String field = "messageId";
+		System.out.println(getCamelName(field));
 	}
 
 	public static String getPascalName(String name) {
 		StringBuilder sb = new StringBuilder();
 		String[] strList = StringUtils.split(name, "_");
 		for (String word : strList) {
-			sb.append(WordUtils.capitalizeFully(word));
+			//sb.append(WordUtils.capitalizeFully(word));
+			sb.append(word);
 		}
 		return sb.toString();
 	}

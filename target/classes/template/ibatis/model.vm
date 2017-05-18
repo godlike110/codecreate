@@ -1,0 +1,28 @@
+package ${modelPkg}; 
+
+import ${baseObjectClass};
+import ${pkClass};
+
+public class ${table.pascalName} extends BaseObject {
+
+    private static final long serialVersionUID = 1L;
+
+#foreach ($field in $table.fields)
+#if($field.isPriKey)
+    @PrimaryKey
+#end
+    private $field.type $field.camelName;
+
+#end
+#foreach ($field in $table.fields)
+    public $field.type get${field.pascalName}() {
+        return $field.camelName;
+    }
+
+    public void set${field.pascalName}($field.type $field.camelName) {
+        this.${field.camelName} = $field.camelName;
+    }
+    
+#end
+
+}

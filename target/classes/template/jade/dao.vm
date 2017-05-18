@@ -29,7 +29,7 @@ public interface ${table.pascalName}DAO extends Mapper<${table.pascalName}>{
 	    #end
 		#set($j=$j+1)
 	#end
-	") VALUES ("+
+	") VALUES("+
 	#foreach ($field in $table.fields)
 	    #if($i==0)
 	       "#{${field.camelName}}"+

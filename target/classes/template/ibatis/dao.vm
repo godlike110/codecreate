@@ -1,0 +1,12 @@
+package $daoPkg;
+
+import ${genericDaoClass};
+import ${modelPkg}.${table.pascalName};
+
+public class ${table.pascalName}Dao extends ${genericDaoClassShort}<${table.pascalName}, ${table.priKey.type}> {
+
+    public ${table.pascalName}Dao() {
+        super(${table.pascalName}.class);
+    }
+    
+}

@@ -1,0 +1,8 @@
+com/codegen/db/service/DBInfoService.class
+com/codegen/ibatis/IBatisCodegenService.class
+com/codegen/db/model/TableInfo.class
+com/codegen/jade/JadeCodegenService.class
+com/codegen/utils/NamingUtils.class
+HelpMojo.class
+com/codegen/Db2Code.class
+com/codegen/db/model/FieldInfo.class

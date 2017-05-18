@@ -1,0 +1,41 @@
+package ${modelPkg}; 
+
+import ${baseObjectClass};
+import ${pkClass};
+
+public class ${table.pascalName} extends BaseObject {
+
+    private static final long serialVersionUID = 1L;
+
+#foreach ($field in $table.fields)
+#if($field.isPriKey)
+    @PrimaryKey
+#end
+    private $field.type $field.camelName;
+
+#end
+    public void copy(${table.pascalName} ${table.lowerName}){
+      #foreach ($field in $table.fields)
+         this.${field.camelName} = ${table.lowerName}.$field.camelName;
+      #end
+    }
+
+#foreach ($field in $table.fields)
+    public $field.type get${field.pascalName}() {
+        return $field.camelName;
+    }
+
+    public void set${field.pascalName}($field.type $field.camelName) {
+        this.${field.camelName} = $field.camelName;
+    }
+    
+#end
+    public static ${table.pascalName} getInstantce(${table.ParamBody}){
+      ${table.pascalName} ${table.lowerName} = new ${table.pascalName}();
+      #foreach ($field in $table.fields)
+         ${table.lowerName}.set${field.pascalName}($field.camelName);
+      #end
+      return ${table.lowerName};
+    }
+
+}

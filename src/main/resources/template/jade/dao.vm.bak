@@ -1,0 +1,56 @@
+package $daoPkg;
+
+import java.util.List;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
+import tk.mybatis.mapper.common.Mapper;
+import ${modelPkg}.${table.pascalName};
+
+
+public interface ${table.pascalName}DAO extends Mapper<${table.pascalName}>{
+
+    public static final String FIELD = "{${table.selectBody}";
+
+	@Select("SELECT ${table.selectBody} FROM ${table.vMTableName} WHERE ${table.priKey.name} = ${table.priKey.name}")
+	${table.pascalName} get( @Param("${table.priKey.name}") ${table.priKey.type} id);
+
+
+	#set ($i=0)
+	#set ($j=0)
+	@Insert("INSERT INTO ${table.vMTableName} ("+
+	#foreach ($field in $table.fields)
+		#if($j==0)
+	       "${field.name}"+
+	    #end
+	    #if($j>0)
+	       ",${field.name}"+
+	    #end
+		#set($j=$j+1)
+	#end
+	") VALUES("+
+	#foreach ($field in $table.fields)
+	    #if($i==0)
+	       "\#\{${field.camelName}\}"+
+	    #end
+	    #if($i>0)
+	       ",\#\{${field.camelName}\}"+
+	    #end
+		#set($i=$i+1)
+	#end
+	")")
+	Long save(${table.pascalName} ${table.lowerName});
+
+	#set ($i=0)
+	@Update("")
+	void update(${table.pascalName} ${table.lowerName});
+
+	@Delete("DELETE FROM ${table.vMTableName} WHERE ${table.priKey.name}=${table.priKey.name}")
+	int delete(@Param("${table.priKey.name}")${table.priKey.type} id);
+
+	@Select("SELECT COUNT(1) FROM ${table.vMTableName}")
+	int count();
+
+}
